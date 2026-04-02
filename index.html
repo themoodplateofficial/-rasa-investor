@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RASA — Investor Presentation · Edison, NJ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black:   #09080A;
+  --deep:    #0E0C10;
+  --panel:   #141218;
+  --card:    #1A1720;
+  --gold:    #C9A84C;
+  --gold2:   #E8C870;
+  --saffron: #D4762A;
+  --cream:   #F0E6D0;
+  --muted:   rgba(240,230,208,0.42);
+  --line:    rgba(201,168,76,0.18);
+  --serif:   'Cormorant Garamond', serif;
+  --sans:    'Jost', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--gold); opacity: 0.4; }
+
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3.5rem;
+  background: rgba(9,8,10,0.88);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--gold); color: var(--black); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--deep);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 65% 55% at 50% 42%, rgba(201,168,76,0.10) 0%, transparent 68%),
+    radial-gradient(ellipse 40% 35% at 15% 70%, rgba(212,118,42,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 35% 30% at 85% 25%, rgba(201,168,76,0.05) 0%, transparent 55%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    linear-gradient(var(--gold) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Sanskrit rasa symbols — decorative background */
+.hero-rasa-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif);
+  font-size: 28vw;
+  font-weight: 300;
+  color: rgba(201,168,76,0.032);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-inner {
+  position: relative;
+  text-align: center;
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.8;
+  margin-bottom: 2rem;
+  animation: fadeUp 1s 0.2s both;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(6rem, 17vw, 13rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  animation: fadeUp 1s 0.4s both;
+}
+
+.hero-title-accent {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.hero-meaning {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  color: var(--muted);
+  margin-top: 1.2rem;
+  letter-spacing: 0.08em;
+  animation: fadeUp 1s 0.6s both;
+}
+
+.hero-tagline {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  margin-top: 2.8rem;
+  line-height: 1.5;
+  animation: fadeUp 1s 0.8s both;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin-top: 3.5rem;
+  animation: fadeUp 1s 1s both;
+}
+
+.hero-stat {
+  padding: 0 2.5rem;
+  text-align: center;
+}
+.hero-stat:not(:last-child) {
+  border-right: 1px solid var(--line);
+}
+
+.hero-stat-val {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+}
+.hero-stat-key {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: fadeUp 1s 1.4s both;
+}
+.hero-scroll span {
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.5;
+}
+.scroll-bar {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollDrop 2.2s ease-in-out infinite;
+}
+
+@keyframes scrollDrop {
+  0%, 100% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  30% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  70% { transform: scaleY(1); transform-origin: bottom; opacity: 1; }
+  100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
+}
+
+/* ── SECTION BASE ── */
+.section {
+  padding: 7rem 3.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.full-bleed {
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.full-bleed .section { max-width: 1200px; }
+
+.section-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-label::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--saffron);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--cream);
+}
+.section-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--line), transparent);
+}
+
+/* ── 01 CONCEPT ── */
+.concept-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+  margin-top: 4rem;
+}
+
+.concept-copy p {
+  font-size: 0.95rem;
+  line-height: 1.95;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.concept-copy p strong {
+  color: var(--cream);
+  font-weight: 400;
+}
+
+.rasa-meaning {
+  margin-top: 2.5rem;
+  padding: 2rem 2rem 2rem 1.8rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(201,168,76,0.04);
+}
+
+.rasa-meaning h4 {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.rasa-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem 1.5rem;
+}
+
+.rasa-item {
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.rasa-item::before {
+  content: '·';
+  color: var(--saffron);
+  flex-shrink: 0;
+}
+
+.pillars {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+}
+
+.pillar {
+  background: var(--card);
+  padding: 2rem 2rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.pillar:hover { background: #1e1b26; }
+
+.pillar::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--saffron);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s ease;
+}
+.pillar:hover::after { transform: scaleY(1); }
+
+.pillar-num {
+  font-family: var(--serif);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: rgba(201,168,76,0.08);
+  position: absolute;
+  top: 0.5rem; right: 1.2rem;
+  line-height: 1;
+}
+
+.pillar h3 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+
+.pillar p {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 380px;
+}
+
+/* ── 02 MARKET ── */
+.market-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 4rem;
+}
+
+.market-copy p {
+  font-size: 0.92rem;
+  line-height: 1.95;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+
+.market-copy p strong { color: var(--cream); font-weight: 400; }
+
+.market-quote {
+  margin-top: 2rem;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1.6;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.stats-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+}
+
+.stat-row {
+  background: var(--card);
+  padding: 2rem 2rem;
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  transition: background 0.3s;
+}
+.stat-row:hover { background: #1e1b26; }
+
+.stat-big {
+  font-family: var(--serif);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--saffron);
+  line-height: 1;
+}
+
+.stat-info h4 {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.25rem;
+}
+.stat-info p {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.gap-callout {
+  margin-top: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 2rem;
+  position: relative;
+}
+
+.gap-callout::before {
+  content: 'THE GAP';
+  position: absolute;
+  top: -0.6rem;
+  left: 1.5rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  background: var(--card);
+  padding: 0 0.6rem;
+  color: var(--gold);
+}
+
+.gap-callout p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.gap-callout p strong { color: var(--gold); font-weight: 400; }
+
+/* ── 03 MODEL ── */
+.revenue-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  margin-top: 3.5rem;
+}
+
+.rev-card {
+  background: var(--card);
+  padding: 2.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.rev-card:hover { background: #1e1b26; }
+
+.rev-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--saffron);
+}
+
+.rev-card.secondary::before { background: var(--gold); }
+.rev-card.tertiary::before { background: rgba(201,168,76,0.3); }
+
+.rev-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 0.6rem;
+}
+.rev-card.secondary .rev-tag { color: var(--gold); }
+.rev-card.tertiary .rev-tag { color: rgba(201,168,76,0.6); }
+
+.rev-card h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.rev-card p {
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.rev-est {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* PROJECTIONS */
+.projections {
+  margin-top: 2rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  padding: 2.5rem 3rem;
+}
+
+.proj-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 2.5rem;
+}
+
+.proj-rows { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.proj-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 200px;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.proj-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.proj-track {
+  height: 5px;
+  background: rgba(255,255,255,0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.proj-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--saffron), var(--gold));
+  animation: growBar 1.6s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+@keyframes growBar {
+  from { width: 0 !important; }
+}
+
+.proj-val {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cream);
+  text-align: right;
+}
+
+/* ── 04 THE ASK ── */
+.ask-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-top: 4rem;
+  align-items: start;
+}
+
+.ask-hero {
+  text-align: center;
+  padding: 3.5rem 2.5rem;
+  border: 1px solid var(--line);
+  position: relative;
+}
+
+.ask-hero::before {
+  content: 'RAISING';
+  position: absolute;
+  top: -0.65rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.52rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  background: var(--deep);
+  padding: 0 0.8rem;
+  color: var(--gold);
+}
+
+.ask-amount {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  color: var(--saffron);
+  line-height: 1;
+}
+
+.ask-type {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+.ask-min {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.ask-min strong {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--gold);
+  display: block;
+  margin-top: 0.3rem;
+}
+
+/* Use of funds */
+.use-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--line);
+  margin-top: 0;
+}
+
+.use-item {
+  background: var(--card);
+  display: grid;
+  grid-template-columns: 68px 1fr auto;
+  align-items: center;
+  padding: 1.4rem 1.8rem;
+  gap: 1.2rem;
+  transition: background 0.3s;
+}
+.use-item:hover { background: #1e1b26; }
+
+.use-pct {
+  font-family: var(--serif);
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: var(--saffron);
+  line-height: 1;
+}
+
+.use-info h4 {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.18rem;
+}
+
+.use-info p {
+  font-size: 0.68rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.use-amt {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+/* Investor offers */
+.offers {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.offer {
+  padding: 1.5rem;
+  border-left: 2px solid var(--saffron);
+  background: rgba(212,118,42,0.04);
+}
+.offer:nth-child(even) {
+  border-left-color: var(--gold);
+  background: rgba(201,168,76,0.04);
+}
+
+.offer h4 {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+}
+
+.offer p {
+  font-size: 0.74rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ── CLOSING ── */
+#closing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.closing-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 50%, rgba(201,168,76,0.09) 0%, transparent 70%);
+}
+
+.closing-watermark {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--serif);
+  font-size: 22vw;
+  font-weight: 600;
+  color: rgba(201,168,76,0.03);
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+
+.closing-inner { position: relative; z-index: 1; padding: 2rem; }
+
+.closing-title {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 12vw, 9rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--cream);
+  line-height: 0.9;
+}
+
+.closing-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  color: var(--muted);
+  margin-top: 1rem;
+  letter-spacing: 0.06em;
+}
+
+.closing-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.8vw, 2rem);
+  font-weight: 300;
+  color: var(--gold);
+  margin-top: 3rem;
+  line-height: 1.6;
+  max-width: 680px;
+}
+
+.closing-details {
+  margin-top: 3.5rem;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-align: left;
+  padding: 2rem 3rem;
+  border: 1px solid var(--line);
+}
+
+.closing-details p {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.closing-details strong {
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.confidential {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 0.52rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.35;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .section { padding: 5rem 1.5rem; }
+  .concept-layout, .market-layout, .ask-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .revenue-grid { grid-template-columns: 1fr; }
+  .hero-stat { padding: 0 1.2rem; }
+  .hero-stat-val { font-size: 1.6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">RASA</div>
+  <ul class="nav-links">
+    <li><a href="#concept">Concept</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#model">Model</a></li>
+    <li><a href="#ask">The Ask</a></li>
+  </ul>
+  <a href="#ask" class="nav-cta">Invest in RASA</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-rasa-bg">रस</div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Confidential Investor Presentation · Edison, New Jersey · 2026</p>
+    <h1 class="hero-title">R<span class="hero-title-accent">A</span>SA</h1>
+    <p class="hero-meaning">रस · Sanskrit for flavor, essence, and the emotion of life</p>
+    <p class="hero-tagline">
+      A premium Indian nightlife experience built for one of the most<br>
+      affluent and underserved South Asian markets in the United States.
+    </p>
+    <p style="font-family:var(--serif); font-style:italic; font-size:clamp(0.95rem,1.8vw,1.25rem); color:var(--muted); margin-top:1rem; letter-spacing:0.03em; animation: fadeUp 1s 0.75s both;">
+      A premium Indian-inspired lounge redefining nightlife in Edison, New Jersey.
+    </p>
+    <p style="font-size:0.7rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-top:1.5rem; animation: fadeUp 1s 0.9s both;">
+      Craft Cocktails &nbsp;·&nbsp; Elevated Street Food &nbsp;·&nbsp; Hookah &nbsp;·&nbsp; Bollywood & Tollywood Nights
+    </p>
+    <div class="hero-meta" style="margin-top:3.5rem;">
+      <div class="hero-stat">
+        <span class="hero-stat-val">$1.0M–$1.5M</span>
+        <span class="hero-stat-key">Seed Raise</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">High</span>
+        <span class="hero-stat-key">Density Diaspora · High Income</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">Zero</span>
+        <span class="hero-stat-key">Premium Nightlife Destination</span>
+      </div>
+    </div>
+    <p style="font-family:var(--serif); font-style:italic; font-size:clamp(0.85rem,1.6vw,1.1rem); color:var(--gold); margin-top:2.5rem; letter-spacing:0.04em; animation: fadeUp 1s 1.1s both;">
+      Built to become the flagship Indian lounge brand in North America.
+    </p>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 01 CONCEPT -->
+<section id="concept" class="section">
+  <p class="section-label reveal">01 · The Concept</p>
+  <h2 class="section-title reveal">Not a restaurant.<br>Not a nightclub.<br><em>The modern desi adda.</em></h2>
+  <p style="font-size:0.95rem; line-height:1.95; color:var(--muted); max-width:680px; margin-top:1.5rem;" class="reveal">RASA brings the energy of India's social culture into a premium, design-led nightlife experience — where music, drinks, and community come together effortlessly.</p>
+
+  <div class="concept-layout">
+    <div class="reveal">
+      <p>Every Indian-American in central New Jersey knows the feeling — you want a great night out, desi music, good drinks, a space that feels like <strong>yours</strong>. So you drive 45 minutes to Manhattan. Then you drive 45 minutes back.</p>
+      <p>RASA ends that journey. We are building Edison's first permanent, dedicated desi lounge — a space that is casual enough for any Thursday, electric enough for every Saturday, and rooted deeply in Indian culture and community.</p>
+      <p>The name RASA comes from Sanskrit. In classical Indian art, the <strong>nine rasas</strong> are the nine fundamental human emotions. Our concept is built on that philosophy — every night at RASA is designed to make you feel something specific.</p>
+
+      <div class="rasa-meaning">
+        <h4>The Nine Rasas — Our Programming DNA</h4>
+        <div class="rasa-grid">
+          <div class="rasa-item">Shringara — Love & Beauty</div>
+          <div class="rasa-item">Hasya — Joy & Laughter</div>
+          <div class="rasa-item">Veera — Courage & Pride</div>
+          <div class="rasa-item">Karuna — Compassion</div>
+          <div class="rasa-item">Adbhuta — Wonder</div>
+          <div class="rasa-item">Raudra — Passion & Fire</div>
+          <div class="rasa-item">Shanta — Peace & Calm</div>
+          <div class="rasa-item">Bhayanaka — Intensity</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillars reveal">
+      <div class="pillar">
+        <div class="pillar-num">1</div>
+        <h3>Craft Indian Bar</h3>
+        <p>Not a cocktail menu. A cultural passport. Every drink at RASA is named after an icon from across the Indian diaspora — Telugu blockbusters, Bollywood dialogues, Punjabi anthems, ABCD experiences. The first pan-Indian cocktail program in the United States. <em style="color:var(--gold);">Not just Bollywood. All of India.</em></p>
+
+        <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.6rem;">
+          <span style="font-family:var(--serif); font-size:0.95rem; font-weight:600; color:var(--cream); padding:0.5rem 1.2rem; border:1px solid var(--line);">RRR</span>
+          <span style="font-family:var(--serif); font-size:0.95rem; font-weight:600; color:var(--cream); padding:0.5rem 1.2rem; border:1px solid var(--line);">Naatu Naatu</span>
+          <span style="font-family:var(--serif); font-size:0.95rem; font-weight:600; color:var(--cream); padding:0.5rem 1.2rem; border:1px solid var(--line);">Baahubali</span>
+          <span style="font-family:var(--serif); font-size:0.95rem; font-weight:600; color:var(--cream); padding:0.5rem 1.2rem; border:1px solid var(--line);">Pushpa</span>
+          <span style="font-family:var(--serif); font-size:0.95rem; font-weight:600; color:var(--cream); padding:0.5rem 1.2rem; border:1px solid var(--line);">Desi at Heart</span>
+        </div>
+
+        <p style="font-size:0.72rem; color:var(--muted); margin-top:1.2rem; line-height:1.7; font-style:italic;">When someone orders a <span style="color:var(--gold);">"Thaggede le"</span> shot, the whole table erupts. That moment of recognition — that connection — is what makes RASA unreplicable.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">2</div>
+        <h3>Bolly / Tolly Nights</h3>
+        <p>Live DJ programming Thursday through Sunday. Dedicated Tollywood Fridays for the Telugu-speaking community — the largest underserved South Asian sub-group in central NJ. Bollywood Saturdays as the main event.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">3</div>
+        <h3>Bar Snacks & Hookah</h3>
+        <p>Elevated Indian bar snacks inspired by nostalgic favorites — designed to pair effortlessly with cocktails and recreate the energy of classic nights out. Simple, familiar, and craveable — built to keep guests engaged and coming back. A premium hookah offering extends the experience and adds to the social atmosphere.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">4</div>
+        <h3>Instagram-Driven Design</h3>
+        <p>A signature peacock-inspired installation, expressed through abstract geometry and layered lighting, anchors the DJ and bar — defining the visual identity of RASA. The space is modern and minimal, designed to drive organic sharing and repeat engagement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 02 MARKET -->
+<div class="full-bleed" id="market">
+  <div class="section">
+    <p class="section-label reveal">02 · Market Opportunity</p>
+    <h2 class="section-title reveal">They're already in Edison.<br><em>Give them a reason to stay.</em></h2>
+
+    <div class="market-layout">
+      <div class="reveal">
+        <p>Edison is already one of the most visited South Asian destinations in America. With a population of <strong>110,002</strong>, a median household income of <strong>$125,145</strong>, and <strong>over 50% Asian residents</strong> — the highest concentration of any municipality in New Jersey — it draws visitors from across the tri-state area, not just to live here, but to experience it.</p>
+        <p>Oak Tree Road is the anchor. Confirmed by NJ PBS as an internationally recognized South Asian destination, it is <strong>the largest and most diverse South Asian cultural hub in the United States</strong> — drawing shoppers, diners, and families from New Jersey, New York, and beyond every single weekend. Middlesex County, home to Edison, has the highest concentration of Asian Indians of any county in the United States, with a median household income of <strong>$111,549</strong>.</p>
+        <p>34.9% of Edison's residents identify as Indian American — the <strong>highest percentage of any municipality in the country</strong>. Add the broader South Asian community — Gujaratis, Punjabis, Telugus, Sri Lankans — and the audience is even larger.</p>
+        <p>The visitors are already here. The spending is already happening. What disappears at 9pm is the opportunity — because there is <strong>no premium nightlife venue</strong> built for this audience anywhere in central New Jersey.</p>
+        <p>RASA doesn't need to build its customer base from scratch. We position ourselves as the natural next stop for every person who spends their Saturday on Oak Tree Road. <strong>Shop in the afternoon. Dine at sunset. Come to RASA when the night begins.</strong></p>
+
+        <div class="market-quote">
+          "We are not asking people to travel somewhere new. We are giving them a reason to stay."
+        </div>
+
+        <div class="gap-callout" style="margin-top:2rem;">
+          <p>Bollywood events in Edison today exist <strong>only as pop-ups</strong> at non-Indian venues — rented spaces with no permanent identity. There is no dedicated, designed, permanently open premium desi lounge in all of central NJ. <strong>RASA is the night Edison has been missing.</strong></p>
+        </div>
+      </div>
+
+      <div class="stats-stack reveal">
+        <div class="stat-row">
+          <div class="stat-big">110K</div>
+          <div class="stat-info">
+            <h4>Edison population · 50%+ Asian</h4>
+            <p>One of the most concentrated Asian populations in New Jersey</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-big">34.9%</div>
+          <div class="stat-info">
+            <h4>Residents identify as Indian American</h4>
+            <p>Among the highest concentrations in the United States</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-big">$125K</div>
+          <div class="stat-info">
+            <h4>Median household income</h4>
+            <p>Affluent, high discretionary spend</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-big">0</div>
+          <div class="stat-info">
+            <h4>Premium desi lounges in Edison & surrounding area</h4>
+            <p>No competition within a 20-mile radius. No precedent. First mover owns this market for a decade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 MODEL -->
+<section id="model" class="section">
+  <p class="section-label reveal">03 · Business Model</p>
+  <h2 class="section-title reveal">Multiple revenue streams.<br><em>Designed for margin, dwell time, and repeat behavior.</em></h2>
+
+  <div class="revenue-grid reveal">
+    <div class="rev-card">
+      <div class="rev-tag">Primary · High Margin</div>
+      <h3>Bar & Cocktails</h3>
+      <p>The core revenue driver, contributing the majority of sales. Premium cocktails operate at ~65–75% gross margin, with a menu designed around high-frequency ordering and strong pricing power.</p>
+      <div class="rev-est">60–70% of total revenue</div>
+    </div>
+    <div class="rev-card secondary">
+      <div class="rev-tag">Primary · Complementary</div>
+      <h3>Food & Kitchen</h3>
+      <p>Elevated Indian bar snacks designed to pair with drinks. Fast, familiar, and repeatable — supporting extended stays without slowing service.</p>
+      <div class="rev-est">20–30% of total revenue</div>
+    </div>
+    <div class="rev-card secondary">
+      <div class="rev-tag">Primary · Dwell Time</div>
+      <h3>Hookah Service</h3>
+      <p>Premium hookah program priced at $35–$55 per setup. Increases average visit duration and drives incremental beverage consumption.</p>
+      <div class="rev-est">10–15% of total revenue</div>
+    </div>
+    <div class="rev-card tertiary">
+      <div class="rev-tag">Secondary</div>
+      <h3>Cover Charges</h3>
+      <p>Weekend cover pricing ($10–$20) aligned with demand. Scales with capacity and peak-night traffic.</p>
+      <div class="rev-est">5–10% of total revenue</div>
+    </div>
+    <div class="rev-card tertiary">
+      <div class="rev-tag">Secondary</div>
+      <h3>Private Events</h3>
+      <p>Cultural and social events including sangeets, Diwali events, and corporate bookings.</p>
+      <div class="rev-est">$5K–$25K per event</div>
+    </div>
+    <div class="rev-card tertiary">
+      <div class="rev-tag">Growth</div>
+      <h3>Brand Partnerships</h3>
+      <p>Collaborations with Indian brands, alcohol partners, and cultural events. High-margin and scalable as brand visibility grows.</p>
+      <div class="rev-est">Scalable with brand</div>
+    </div>
+  </div>
+
+  <div class="projections reveal">
+    <div class="proj-title">Revenue Projection · 3-Year Outlook</div>
+
+    <div style="margin-bottom:2rem; padding:1.2rem 1.5rem; border:1px solid var(--line); background:rgba(201,168,76,0.04);">
+      <p style="font-size:0.72rem; color:var(--muted); line-height:1.8;"><span style="color:var(--gold); font-weight:500;">Modelling basis:</span> 150-seat venue · ~3,500–4,000 sq ft · Edison/Oak Tree Road area · Revenue concentrated in Friday & Saturday peak operations (~70% of weekly revenue in 15 hours)</p>
+    </div>
+
+    <div class="proj-rows" style="margin-bottom:2rem;">
+      <div class="proj-row">
+        <div class="proj-label">Year 1</div>
+        <div class="proj-track"><div class="proj-fill" style="width:32%"></div></div>
+        <div style="text-align:right;">
+          <div class="proj-val">$1.6M – $2.0M</div>
+          <div style="font-size:0.65rem; color:var(--muted); margin-top:0.2rem;">Initial ramp with partial capacity and brand build</div>
+        </div>
+      </div>
+      <div class="proj-row">
+        <div class="proj-label">Year 2</div>
+        <div class="proj-track"><div class="proj-fill" style="width:62%"></div></div>
+        <div style="text-align:right;">
+          <div class="proj-val">$2.8M – $3.6M</div>
+          <div style="font-size:0.65rem; color:var(--muted); margin-top:0.2rem;">Stabilized operations with consistent weekend demand</div>
+        </div>
+      </div>
+      <div class="proj-row">
+        <div class="proj-label">Year 3</div>
+        <div class="proj-track"><div class="proj-fill" style="width:100%"></div></div>
+        <div style="text-align:right;">
+          <div class="proj-val">$4.0M – $6.0M</div>
+          <div style="font-size:0.65rem; color:var(--muted); margin-top:0.2rem;">Base: $4.0M–$5.0M · Target: $5.0M–$6.0M · Full capacity, repeat customers, event-led growth</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--line); padding-top:1.8rem;">
+      <p style="font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--saffron); margin-bottom:1.2rem;">Year 1 Weekly Revenue Model · 150-Seat Venue</p>
+      <div style="display:flex; flex-direction:column; gap:1px; background:var(--line);">
+
+        <div style="display:grid; grid-template-columns:1fr 120px 130px; gap:1rem; padding:0.9rem 1.2rem; background:var(--deep);">
+          <span style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Stream</span>
+          <span style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); text-align:right;">Weekly</span>
+          <span style="font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); text-align:right;">Annual</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 120px 130px; gap:1rem; padding:0.9rem 1.2rem; background:var(--card); align-items:center;">
+          <div>
+            <span style="font-size:0.85rem; color:var(--cream);">Bar & Cocktails</span>
+            <span style="display:block; font-size:0.68rem; color:var(--muted); margin-top:0.15rem;">~1,200 drinks · $18 avg · Fri/Sat peak</span>
+          </div>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--cream); text-align:right;">$22,000</span>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--gold); text-align:right;">$1,144,000</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 120px 130px; gap:1rem; padding:0.9rem 1.2rem; background:var(--card); align-items:center;">
+          <div>
+            <span style="font-size:0.85rem; color:var(--cream);">Food — Small Plates</span>
+            <span style="display:block; font-size:0.68rem; color:var(--muted); margin-top:0.15rem;">~600 plates · $15 avg</span>
+          </div>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--cream); text-align:right;">$9,000</span>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--gold); text-align:right;">$468,000</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 120px 130px; gap:1rem; padding:0.9rem 1.2rem; background:var(--card); align-items:center;">
+          <div>
+            <span style="font-size:0.85rem; color:var(--cream);">Hookah Service</span>
+            <span style="display:block; font-size:0.68rem; color:var(--muted); margin-top:0.15rem;">~120 setups · $45 avg</span>
+          </div>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--cream); text-align:right;">$5,500</span>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--gold); text-align:right;">$286,000</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 120px 130px; gap:1rem; padding:0.9rem 1.2rem; background:var(--card); align-items:center;">
+          <div>
+            <span style="font-size:0.85rem; color:var(--cream);">Private Events</span>
+            <span style="display:block; font-size:0.68rem; color:var(--muted); margin-top:0.15rem;">2 mid-week mixers or 1 Sunday brunch</span>
+          </div>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--cream); text-align:right;">$4,000</span>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--gold); text-align:right;">$208,000</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 120px 130px; gap:1rem; padding:0.9rem 1.2rem; background:var(--card); align-items:center;">
+          <div>
+            <span style="font-size:0.85rem; color:var(--cream);">Cover Charges</span>
+            <span style="display:block; font-size:0.68rem; color:var(--muted); margin-top:0.15rem;">~125 guests · $20 · Saturday only</span>
+          </div>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--cream); text-align:right;">$2,500</span>
+          <span style="font-family:var(--serif); font-size:1rem; font-weight:600; color:var(--gold); text-align:right;">$130,000</span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 120px 130px; gap:1rem; padding:1.1rem 1.2rem; background:rgba(201,168,76,0.08); align-items:center;">
+          <span style="font-size:0.82rem; font-weight:500; color:var(--cream); letter-spacing:0.05em;">ESTIMATED TOTAL</span>
+          <span style="font-family:var(--serif); font-size:1.1rem; font-weight:700; color:var(--saffron); text-align:right;">$43,000</span>
+          <span style="font-family:var(--serif); font-size:1.1rem; font-weight:700; color:var(--saffron); text-align:right;">$2,236,000</span>
+        </div>
+
+      </div>
+      <p style="font-size:0.68rem; color:var(--muted); margin-top:1rem; line-height:1.7; font-style:italic;">Conservative model based on 52-week operation. Excludes growth from brand partnerships, seasonal events, and Diwali/IPL programming uplift.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 04 THE ASK -->
+<div class="full-bleed" id="ask">
+  <div class="section">
+    <p class="section-label reveal">04 · The Ask</p>
+    <h2 class="section-title reveal">Join us at<br><em>the beginning.</em></h2>
+
+    <div class="ask-layout">
+      <div class="reveal">
+        <div class="ask-hero">
+          <div class="ask-amount">$1.0M – $1.5M</div>
+          <div class="ask-type">Seed Round · Equity + Convertible Notes</div>
+          <div class="ask-min">
+            Minimum check size
+            <strong>$100,000 – $200,000</strong>
+          </div>
+        </div>
+
+        <div class="use-list" style="margin-top:1px;">
+          <div class="use-item">
+            <div class="use-pct">48%</div>
+            <div class="use-info">
+              <h4>Licenses & Legal</h4>
+              <p>New Jersey liquor license, permits, insurance & legal</p>
+            </div>
+            <div class="use-amt">$500K – $700K</div>
+          </div>
+          <div class="use-item">
+            <div class="use-pct">19%</div>
+            <div class="use-info">
+              <h4>Build-out & Interior Design</h4>
+              <p>Space renovation, lighting, DJ booth, furniture & signature visual installations</p>
+            </div>
+            <div class="use-amt">$200K – $250K</div>
+          </div>
+          <div class="use-item">
+            <div class="use-pct">15%</div>
+            <div class="use-info">
+              <h4>Equipment & Kitchen</h4>
+              <p>Bar setup, refrigeration, hookah stations, kitchen equipment, POS</p>
+            </div>
+            <div class="use-amt">$150K – $200K</div>
+          </div>
+          <div class="use-item">
+            <div class="use-pct">10%</div>
+            <div class="use-info">
+              <h4>Working Capital</h4>
+              <p>Initial payroll, inventory & operating buffer</p>
+            </div>
+            <div class="use-amt">$100K – $150K</div>
+          </div>
+          <div class="use-item">
+            <div class="use-pct">9%</div>
+            <div class="use-info">
+              <h4>Marketing & Launch</h4>
+              <p>Pre-opening campaign, launch events, influencer & PR strategy</p>
+            </div>
+            <div class="use-amt">$100K – $150K</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <h3 style="font-family:var(--serif);font-size:1.3rem;font-weight:600;color:var(--cream);margin-bottom:1.5rem;">What You Receive as a Founding Investor</h3>
+
+        <div class="offers">
+          <div class="offer">
+            <h4>Equity Participation</h4>
+            <p>Direct equity in RASA LLC, proportional to investment. Structured with full cap table transparency and aligned with comparable hospitality valuations in the NJ/NY metro market.</p>
+          </div>
+          <div class="offer">
+            <h4>Governance & Reporting</h4>
+            <p>Investors at $100K+ receive board observer rights and quarterly financial reporting. Clear visibility into performance, operations, and financials.</p>
+          </div>
+          <div class="offer">
+            <h4>Founding Investor Status</h4>
+            <p>Recognition as a founding investor, with priority access to reservations, private events, and key brand experiences.</p>
+          </div>
+          <div class="offer">
+            <h4>Expansion Rights</h4>
+            <p>Right of first participation in future RASA locations across major South Asian markets, including California, Texas, and Illinois.</p>
+          </div>
+          <div class="offer">
+            <h4>Strategic Positioning</h4>
+            <p>Participation in building a scalable Indian-inspired nightlife brand within one of the most concentrated and affluent South Asian markets in the United States.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<section id="closing">
+  <div class="closing-bg"></div>
+  <div class="closing-watermark">RASA</div>
+  <div class="closing-inner">
+    <div class="closing-title">RASA</div>
+    <p class="closing-sub">रस · flavor · essence · the juice of life</p>
+    <p class="closing-quote">
+      "Edison has been waiting for this.<br>
+      The community is ready. The market is open.<br>
+      Let's build it together."
+    </p>
+    <div class="closing-details">
+      <p>Location · <strong>Edison, New Jersey</strong></p>
+      <p>Round · <strong>Seed · Open Now</strong></p>
+      <p>Raise · <strong>$1.0M – $1.5M</strong></p>
+      <p>Minimum · <strong>$100,000 – $200,000</strong></p>
+    </div>
+  </div>
+  <p class="confidential">Confidential · For Investor Use Only · RASA Edison LLC · 2026</p>
+</section>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
