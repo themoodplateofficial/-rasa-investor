@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RASA — The Experience · Edison, NJ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --black:#09080A; --deep:#0E0C10; --panel:#141218; --card:#1A1720;
+  --gold:#C9A84C; --saffron:#D4762A; --cream:#F0E6D0;
+  --muted:rgba(240,230,208,0.45); --line:rgba(201,168,76,0.18);
+  --serif:'Cormorant Garamond',serif; --sans:'Jost',sans-serif;
+}
+html { scroll-behavior:smooth; }
+body { background:var(--black); color:var(--cream); font-family:var(--sans); font-weight:300; overflow-x:hidden; }
+::-webkit-scrollbar{width:3px} ::-webkit-scrollbar-track{background:var(--black)} ::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:1.2rem 3.5rem; background:rgba(9,8,10,0.95); backdrop-filter:blur(18px); border-bottom:1px solid var(--line); }
+.nav-logo { font-family:var(--serif); font-size:1.4rem; font-weight:600; letter-spacing:0.28em; color:var(--gold); text-decoration:none; }
+.nav-tag { font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); }
+.nav-back { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid var(--line); color:var(--muted); text-decoration:none; transition:all 0.3s; }
+.nav-back:hover { border-color:var(--gold); color:var(--gold); }
+
+/* HERO */
+.hero { min-height:70vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:9rem 3.5rem 5rem; background:var(--deep); position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 60% at 50% 50%, rgba(212,118,42,0.12) 0%, transparent 65%); }
+.hero::after { content:''; position:absolute; inset:0; background-image:linear-gradient(var(--gold) 1px, transparent 1px), linear-gradient(90deg, var(--gold) 1px, transparent 1px); background-size:80px 80px; opacity:0.025; }
+.hero-inner { position:relative; z-index:1; max-width:800px; }
+.hero-label { font-size:0.6rem; letter-spacing:0.5em; text-transform:uppercase; color:var(--saffron); margin-bottom:1.5rem; }
+.hero-title { font-family:var(--serif); font-size:clamp(3rem,8vw,7rem); font-weight:300; color:var(--cream); line-height:0.95; margin-bottom:1.5rem; }
+.hero-title em { color:var(--gold); font-style:italic; }
+.hero-sub { font-family:var(--serif); font-style:italic; font-size:clamp(1rem,2.2vw,1.5rem); color:var(--muted); margin-bottom:2.5rem; line-height:1.6; }
+.hero-quote { font-family:var(--serif); font-style:italic; font-size:clamp(1rem,2vw,1.3rem); color:var(--gold); border-top:1px solid var(--line); padding-top:2rem; line-height:1.7; }
+
+/* DIVIDER */
+.divider { height:1px; background:linear-gradient(to right, transparent, var(--line), transparent); }
+.full-bleed { background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+
+/* SECTION */
+.section { max-width:1200px; margin:0 auto; padding:5rem 3.5rem; }
+.section-label { font-size:0.58rem; letter-spacing:0.42em; text-transform:uppercase; color:var(--saffron); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; }
+.section-label::before { content:''; width:28px; height:1px; background:var(--saffron); }
+.section-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3.5rem); font-weight:300; color:var(--cream); line-height:1.08; }
+.section-title em { color:var(--gold); font-style:italic; }
+
+/* WEEKLY CALENDAR */
+.calendar-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); margin-top:3rem; }
+.cal-day { background:var(--card); padding:2rem; position:relative; overflow:hidden; transition:background 0.3s; cursor:default; }
+.cal-day:hover { background:#1e1b26; }
+.cal-day::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.cal-thu::before { background:rgba(201,168,76,0.4); }
+.cal-fri::before { background:var(--saffron); }
+.cal-sat::before { background:var(--gold); }
+.cal-sun::before { background:rgba(201,168,76,0.6); }
+.cal-day-name { font-size:0.58rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); margin-bottom:0.6rem; }
+.cal-night-name { font-family:var(--serif); font-size:1.3rem; font-weight:600; color:var(--cream); margin-bottom:0.5rem; line-height:1.2; }
+.cal-night-sub { font-size:0.72rem; color:var(--gold); margin-bottom:1rem; font-style:italic; }
+.cal-desc { font-size:0.75rem; color:var(--muted); line-height:1.8; margin-bottom:1.2rem; }
+.cal-tag { display:inline-block; font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; padding:0.2rem 0.65rem; border:1px solid var(--line); color:var(--muted); }
+.cal-hot { border-color:var(--saffron); color:var(--saffron); }
+.cal-gold { border-color:var(--gold); color:var(--gold); }
+
+/* SATURDAY NIGHT TIMELINE */
+.timeline-wrap { margin-top:3rem; position:relative; }
+.timeline-line { position:absolute; left:120px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, var(--saffron), var(--gold), transparent); }
+.timeline-item { display:grid; grid-template-columns:120px 1fr; gap:2.5rem; margin-bottom:0; padding:2.5rem 0; border-bottom:1px solid rgba(201,168,76,0.08); position:relative; }
+.timeline-item:last-child { border-bottom:none; }
+.timeline-time { text-align:right; padding-right:2.5rem; }
+.t-hour { font-family:var(--serif); font-size:1.8rem; font-weight:600; color:var(--gold); line-height:1; display:block; }
+.t-period { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); display:block; margin-top:0.2rem; }
+.timeline-dot { position:absolute; left:112px; top:2.8rem; width:17px; height:17px; border-radius:50%; background:var(--black); border:2px solid var(--gold); z-index:1; }
+.timeline-dot.active { background:var(--saffron); border-color:var(--saffron); box-shadow:0 0 16px rgba(212,118,42,0.5); }
+.timeline-content { padding-left:0; }
+.t-event { font-family:var(--serif); font-size:1.4rem; font-weight:600; color:var(--cream); margin-bottom:0.35rem; }
+.t-detail { font-size:0.8rem; color:var(--muted); line-height:1.8; margin-bottom:0.8rem; }
+.t-rasa { font-size:0.68rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--saffron); font-style:italic; }
+
+/* EXPERIENCE CARDS */
+.exp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-top:3rem; }
+.exp-card { background:var(--card); padding:2.2rem; position:relative; overflow:hidden; transition:background 0.3s; }
+.exp-card:hover { background:#1e1b26; }
+.exp-card::after { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:var(--saffron); transform:scaleY(0); transform-origin:bottom; transition:transform 0.4s; }
+.exp-card:hover::after { transform:scaleY(1); }
+.exp-num { font-family:var(--serif); font-size:4rem; font-weight:300; color:rgba(201,168,76,0.06); position:absolute; top:0.5rem; right:1rem; line-height:1; }
+.exp-icon { font-size:1.8rem; margin-bottom:1rem; }
+.exp-card h3 { font-family:var(--serif); font-size:1.3rem; font-weight:600; color:var(--gold); margin-bottom:0.5rem; }
+.exp-card p { font-size:0.78rem; color:var(--muted); line-height:1.8; margin-bottom:1rem; }
+.exp-revenue { font-size:0.65rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--saffron); }
+
+/* CULTURAL CALENDAR */
+.cultural-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); margin-top:3rem; }
+.cultural-card { background:var(--card); padding:2rem; display:grid; grid-template-columns:80px 1fr; gap:1.5rem; align-items:start; transition:background 0.3s; }
+.cultural-card:hover { background:#1e1b26; }
+.cultural-month { font-family:var(--serif); font-size:1.1rem; font-weight:600; color:var(--saffron); line-height:1; }
+.cultural-card h4 { font-size:0.88rem; font-weight:400; color:var(--cream); margin-bottom:0.3rem; }
+.cultural-card p { font-size:0.72rem; color:var(--muted); line-height:1.6; }
+.cultural-card .revenue { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-top:0.5rem; }
+
+/* REVENUE IMPACT */
+.revenue-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); }
+.rev-block { background:var(--card); padding:2rem; text-align:center; }
+.rev-val { font-family:var(--serif); font-size:2rem; font-weight:600; color:var(--gold); display:block; line-height:1; }
+.rev-key { font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); margin-top:0.5rem; display:block; line-height:1.5; }
+
+/* CLOSING QUOTE */
+.closing { text-align:center; padding:6rem 3.5rem; background:var(--panel); position:relative; overflow:hidden; }
+.closing::before { content:'रस'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-size:25vw; color:rgba(201,168,76,0.03); pointer-events:none; }
+.closing-inner { position:relative; z-index:1; }
+.closing-quote { font-family:var(--serif); font-style:italic; font-size:clamp(1.5rem,3.5vw,2.8rem); font-weight:300; color:var(--gold); line-height:1.5; max-width:800px; margin:0 auto 2rem; }
+.closing-sub { font-size:0.7rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* FOOTER */
+footer { display:flex; justify-content:space-between; align-items:center; padding:1.5rem 3.5rem; border-top:1px solid var(--line); background:var(--black); }
+footer p { font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); opacity:0.5; }
+footer a { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); text-decoration:none; padding:0.5rem 1.2rem; border:1px solid var(--line); transition:all 0.3s; }
+footer a:hover { border-color:var(--gold); }
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem} .nav-tag{display:none}
+  .section{padding:3rem 1.5rem}
+  .calendar-grid{grid-template-columns:1fr 1fr}
+  .exp-grid{grid-template-columns:1fr}
+  .cultural-grid{grid-template-columns:1fr}
+  .revenue-strip{grid-template-columns:repeat(2,1fr)}
+  .timeline-line{left:80px}
+  .timeline-item{grid-template-columns:80px 1fr; gap:1.5rem}
+  .timeline-dot{left:72px}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="rasa-investor.html" class="nav-logo">RASA</a>
+  <span class="nav-tag">The Experience · Every Night Finds Its Rasa</span>
+  <a href="rasa-investor.html" class="nav-back">← Investor Deck</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-label">RASA · Edison, New Jersey · The Experience</p>
+    <h1 class="hero-title">Not just a bar.<br><em>A cultural living room.</em></h1>
+    <p class="hero-sub">Every night at RASA is a different rasa — a different emotion, a different community, a different reason to stay. This is how we build a destination, not just a venue.</p>
+    <p class="hero-quote">"People don't remember the meal.<br>They remember how the night moved them."</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WEEKLY PROGRAMMING -->
+<section class="section">
+  <p class="section-label reveal">Weekly Programming</p>
+  <h2 class="section-title reveal">Every night has<br><em>a different soul.</em></h2>
+  <p style="font-size:0.88rem; color:var(--muted); line-height:1.9; max-width:650px; margin-top:1rem;" class="reveal">RASA isn't a one-night concept. Every day of the week is programmed for a different crowd, a different vibe, and a different rasa. This is what builds loyalty across every South Asian community in central NJ.</p>
+
+  <div class="calendar-grid reveal">
+    <div class="cal-day cal-thu">
+      <div class="cal-day-name">Thursday</div>
+      <div class="cal-night-name">Rasa Lounge Night</div>
+      <div class="cal-night-sub">The warm opener</div>
+      <p class="cal-desc">Lo-fi Bollywood remixes, hookah specials, candlelit tables. The regulars own the space before the weekend crowd arrives. Builds the loyal core community that makes RASA theirs.</p>
+      <span class="cal-tag">Chill · Intimate</span>
+    </div>
+    <div class="cal-day cal-fri">
+      <div class="cal-day-name">Friday</div>
+      <div class="cal-night-name">Tollywood Fridays</div>
+      <div class="cal-night-sub">Telugu anthems · Regional beats</div>
+      <p class="cal-desc">Dedicated to the Telugu-speaking community — the largest underserved South Asian sub-group in central NJ. Full DJ set of RRR to current hits. Packs the room every single week. No one else does this.</p>
+      <span class="cal-tag cal-hot">🔥 Signature Night</span>
+    </div>
+    <div class="cal-day cal-sat">
+      <div class="cal-day-name">Saturday</div>
+      <div class="cal-night-name">Bollywood Saturdays</div>
+      <div class="cal-night-sub">The main event · 9PM – 2AM</div>
+      <p class="cal-desc">The night people used to drive to NYC for. Full DJ from 9PM, peak cocktail service, the floor packed by 10. Classics to current hits. Cover charges. Maximum revenue in 5 hours of operation.</p>
+      <span class="cal-tag cal-gold">⭐ Main Event</span>
+    </div>
+    <div class="cal-day cal-sun">
+      <div class="cal-day-name">Sunday</div>
+      <div class="cal-night-name">Retro Sundays</div>
+      <div class="cal-night-sub">90s & 2000s Bollywood only</div>
+      <p class="cal-desc">Nostalgia is the most powerful emotion. Families, 30-somethings, anyone who grew up on these songs. Ends at midnight — respects the school night, still drives strong revenue from the most loyal crowd.</p>
+      <span class="cal-tag">Family Favourite</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SATURDAY NIGHT TIMELINE -->
+<div class="full-bleed">
+<section class="section">
+  <p class="section-label reveal">The Night · Hour by Hour</p>
+  <h2 class="section-title reveal">A Saturday at RASA.<br><em>From the first arrival to the last song.</em></h2>
+  <p style="font-size:0.88rem; color:var(--muted); line-height:1.9; max-width:650px; margin-top:1rem;" class="reveal">This is what investors need to feel. Not a revenue chart — the actual night. Walk through it.</p>
+
+  <div class="timeline-wrap reveal">
+    <div class="timeline-line"></div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">6</span>
+        <span class="t-period">PM</span>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="t-event">Doors Open · Early Arrivals</div>
+        <p class="t-detail">The first guests arrive — couples, small groups, the regulars who know the best tables. Hookah is ordered. The first cocktails land. Lo-fi Bollywood plays at 70 decibels. The peacock wall glows in amber. The space feels like a secret worth keeping.</p>
+        <span class="t-rasa">Rasa: Shanta — Peace & calm</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">7</span>
+        <span class="t-period">PM</span>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="t-event">The Dinner Hour · Bar Snacks & Cocktails</div>
+        <p class="t-detail">Pani Puri shots hit the tables. Chaat Nachos disappear before they land. The bar fills. The first "Thaggede le" shot is ordered and the whole table erupts. This is when the bar revenue starts climbing and doesn't stop until 1AM.</p>
+        <span class="t-rasa">Rasa: Hasya — Joy & laughter</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">8</span>
+        <span class="t-period">PM</span>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="t-event">The Crowd Builds · Hookah Floor Packed</div>
+        <p class="t-detail">Every hookah station is occupied. The bar has a line. Groups of 6–8 fill the lounge. The energy shifts from dinner to night. Music ticks up to 80 decibels. The DJ sets up behind the peacock wall. The room starts to feel electric.</p>
+        <span class="t-rasa">Rasa: Adbhuta — Wonder & anticipation</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">9</span>
+        <span class="t-period">PM</span>
+      </div>
+      <div class="timeline-dot active"></div>
+      <div class="timeline-content">
+        <div class="t-event">DJ Drops · The Night Begins</div>
+        <p class="t-detail">The 60-second RASA sonic intro plays — a tabla groove that builds into the first track. The lights shift. The peacock wall pulses in deep red. The first song hits and the floor fills instantly. This is the moment the whole room has been waiting for. This is why they didn't go to NYC.</p>
+        <span class="t-rasa">Rasa: Veera — Courage & pride · Raudra — Passion & fire</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">10</span>
+        <span class="t-period">PM</span>
+      </div>
+      <div class="timeline-dot active"></div>
+      <div class="timeline-content">
+        <div class="t-event">Peak Hour · Floor at Capacity</div>
+        <p class="t-detail">150 people. Every table taken. The bar serves 3 drinks a minute. The cover charge line wraps around the block. Phones are up — the peacock wall is all over Instagram. Reels are going live. Someone in Woodbridge sees it and texts their friends. RASA markets itself.</p>
+        <span class="t-rasa">Rasa: Shringara — Love, beauty & belonging</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">11</span>
+        <span class="t-period">PM</span>
+      </div>
+      <div class="timeline-dot active"></div>
+      <div class="timeline-content">
+        <div class="t-event">The Classic Drop · Everyone Sings</div>
+        <p class="t-detail">The DJ drops a 2000s classic — Kajra Re, Chaiyya Chaiyya, Naatu Naatu. The entire room sings together. Strangers become friends. This is the moment that no one planned and everyone remembers. This is what RASA sells. Not a cocktail. This moment.</p>
+        <span class="t-rasa">Rasa: Karuna — Compassion & connection</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">12</span>
+        <span class="t-period">AM</span>
+      </div>
+      <div class="timeline-dot active"></div>
+      <div class="timeline-content">
+        <div class="t-event">Midnight · The Night Peaks</div>
+        <p class="t-detail">The room is at its loudest. The bar has served over 800 drinks. Hookah tables have turned twice. The DJ plays back-to-back anthems. The peacock wall shifts between gold and electric blue. Nobody is thinking about leaving. This is the $22,000 night in real time.</p>
+        <span class="t-rasa">Rasa: Bhayanaka — Intensity & electricity</span>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-time">
+        <span class="t-hour">2</span>
+        <span class="t-period">AM</span>
+      </div>
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <div class="t-event">Last Song · The Night They'll Talk About</div>
+        <p class="t-detail">The last song plays. The lights come up slowly. People don't want to leave. They exchange numbers. They make plans for next Friday. Two people post their final reel at the peacock wall. By Monday morning, RASA has 40 new followers and 200 story mentions. The marketing happens automatically.</p>
+        <span class="t-rasa">Rasa: Shanta — Peace. The night finds its rasa.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- ALL EXPERIENCES -->
+<section class="section">
+  <p class="section-label reveal">The Full Experience Menu</p>
+  <h2 class="section-title reveal">Every night is programmed.<br><em>Every experience drives revenue.</em></h2>
+  <p style="font-size:0.88rem; color:var(--muted); line-height:1.9; max-width:650px; margin-top:1rem;" class="reveal">RASA is not a DJ bar. It is a full-spectrum cultural experience venue. Different experiences attract different crowds — and different revenue models.</p>
+
+  <div class="exp-grid reveal">
+
+    <div class="exp-card">
+      <div class="exp-num">01</div>
+      <div class="exp-icon">🎵</div>
+      <h3>Bollywood & Tollywood DJ Nights</h3>
+      <p>The heartbeat. Friday Tollywood, Saturday Bollywood. Full DJ sets, cover charges, peak cocktail service. The highest revenue nights of the week — 70% of weekly income in 15 hours of operation.</p>
+      <div class="exp-revenue">Primary · Fri & Sat · Cover + Bar</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">02</div>
+      <div class="exp-icon">🎤</div>
+      <h3>Desi Karaoke Nights</h3>
+      <p>Bollywood karaoke — Hindi, Telugu, Punjabi, Tamil. Private booth packages available for groups. One of the fastest-growing bar formats globally at 6%+ CAGR. Drives longer dwell time and higher per-head spend than DJ nights. The community loves to perform.</p>
+      <div class="exp-revenue">Mid-week · Group bookings · Private booths</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">03</div>
+      <div class="exp-icon">🎸</div>
+      <h3>Live Band Nights</h3>
+      <p>Ghazal evenings, Bollywood jazz fusion, live fusion bands blending Indian classical with contemporary. Positions RASA as a cultural institution, not just a party venue. Attracts an older, higher-spending demographic on weeknights.</p>
+      <div class="exp-revenue">Thu & select nights · Premium cover</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">04</div>
+      <div class="exp-icon">👑</div>
+      <h3>Girls Night Out</h3>
+      <p>Monthly dedicated girls night — DJ, special cocktail menu, priority reservations, themed décor. The desi girls night is massively underserved in NJ. Women are the primary decision-makers for group outings. Own this night and you own the group booking market.</p>
+      <div class="exp-revenue">Monthly · Group packages · High bar spend</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">05</div>
+      <div class="exp-icon">🏏</div>
+      <h3>IPL & Cricket Watch Parties</h3>
+      <p>IPL season is 2 months of packed midweek nights. India vs Pakistan match = a sold-out venue before doors open. Live screening, themed cocktails, group viewing packages. Turns Tuesday into Saturday revenue. Completely untapped in Edison's nightlife space.</p>
+      <div class="exp-revenue">Seasonal · Midweek revenue booster</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">06</div>
+      <div class="exp-icon">🕯️</div>
+      <h3>Private Events & Sangeets</h3>
+      <p>Sangeets, engagement parties, milestone birthdays, Diwali corporate events, baby showers. Full venue buyout at $5K–$25K per event. Recession-resilient — life events happen regardless of the economy. The most profitable revenue stream per hour of operation.</p>
+      <div class="exp-revenue">$5K–$25K per event · Venue buyout</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">07</div>
+      <div class="exp-icon">🎭</div>
+      <h3>Comedy & Open Mic Nights</h3>
+      <p>Desi comedy is exploding. South Asian comedians are selling out venues nationwide. A monthly desi comedy night at RASA creates a completely new audience segment — families, professionals, people who don't typically go to bars but will come for a show.</p>
+      <div class="exp-revenue">Monthly · Ticket + bar · New audience</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">08</div>
+      <div class="exp-icon">🪔</div>
+      <h3>Cultural Festival Nights</h3>
+      <p>Navratri. Diwali. Holi. Lohri. Onam. Eid. Each festival night targets a specific sub-community and builds breadth of loyalty. The Diwali grand opening event alone could be the most talked-about night in Edison in a decade.</p>
+      <div class="exp-revenue">Annual events · Premium pricing · Sold out</div>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-num">09</div>
+      <div class="exp-icon">🌙</div>
+      <h3>Retro & Theme Nights</h3>
+      <p>90s Bollywood only. 2000s special. Ar Rahman tribute night. Shah Rukh Khan vs Salman Khan — you choose a side, the DJ plays your team. Themed nights create social media buzz before the event even happens. The concept is the marketing.</p>
+      <div class="exp-revenue">Monthly · Cover charge · High social reach</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CULTURAL CALENDAR -->
+<div class="full-bleed">
+<section class="section">
+  <p class="section-label reveal">The Annual Calendar</p>
+  <h2 class="section-title reveal">52 weeks.<br><em>Never a slow month.</em></h2>
+  <p style="font-size:0.88rem; color:var(--muted); line-height:1.9; max-width:650px; margin-top:1rem;" class="reveal">The South Asian cultural calendar means RASA has a major revenue event every single month of the year. This is what makes Indian nightlife structurally different from generic bars.</p>
+
+  <div class="cultural-grid reveal">
+    <div class="cultural-card">
+      <div class="cultural-month">JAN</div>
+      <div>
+        <h4>Lohri & Pongal Nights</h4>
+        <p>Punjabi and South Indian harvest festivals. Bhangra night, traditional music, special menu. Two communities, one January.</p>
+        <div class="revenue">Cover + Private events</div>
+      </div>
+    </div>
+    <div class="cultural-card">
+      <div class="cultural-month">FEB</div>
+      <div>
+        <h4>Valentine's Shringara Night</h4>
+        <p>Couples night themed around Shringara — love & beauty. Rose cocktails, romantic playlist, couples packages. The desi Valentine's destination in NJ.</p>
+        <div class="revenue">Premium couple packages</div>
+      </div>
+    </div>
+    <div class="cultural-card">
+      <div class="cultural-month">MAR</div>
+      <div>
+        <h4>Holi Celebration</h4>
+        <p>The biggest Instagram night of the year. Colour-themed cocktails, white-dress dress code, Holi DJ set. Every photo goes viral. The organic marketing event of the calendar.</p>
+        <div class="revenue">Sold out · High cover charge</div>
+      </div>
+    </div>
+    <div class="cultural-card">
+      <div class="cultural-month">APR–MAY</div>
+      <div>
+        <h4>IPL Season Watch Parties</h4>
+        <p>2 months of midweek revenue. Every India match = packed house. India vs Pakistan = sold out before the toss. Group viewing packages, themed cocktails per team.</p>
+        <div class="revenue">Midweek revenue surge · 8 weeks</div>
+      </div>
+    </div>
+    <div class="cultural-card">
+      <div class="cultural-month">AUG</div>
+      <div>
+        <h4>India Independence Day</h4>
+        <p>NJ India Day Parade ends on Oak Tree Road. RASA is the after-party. The natural next stop for every parade attendee. The biggest organic foot traffic event of the year.</p>
+        <div class="revenue">Largest single-night revenue</div>
+      </div>
+    </div>
+    <div class="cultural-card">
+      <div class="cultural-month">OCT</div>
+      <div>
+        <h4>Navratri & Garba Nights</h4>
+        <p>9 nights of Garba for the Gujarati community. Live dhol, traditional dance, special mocktail menu for non-drinkers. Fills the venue for 9 consecutive nights.</p>
+        <div class="revenue">9-night revenue event · Entire community</div>
+      </div>
+    </div>
+    <div class="cultural-card">
+      <div class="cultural-month">NOV</div>
+      <div>
+        <h4>Diwali Grand Gala</h4>
+        <p>The biggest night of the year. Full venue buyout available. Gold and black dress code. Fireworks cocktail menu. The Diwali grand opening is the event that puts RASA on the map of NJ permanently.</p>
+        <div class="revenue">Premium ticketing · $15K–$25K night</div>
+      </div>
+    </div>
+    <div class="cultural-card">
+      <div class="cultural-month">DEC</div>
+      <div>
+        <h4>New Year's Eve · Rasa Countdown</h4>
+        <p>The premium NYE countdown. Bollywood countdown, champagne toast at midnight, black-tie optional. Ticket-based, premium pricing. The most expensive single night of the calendar.</p>
+        <div class="revenue">Ticket-only · Highest per-head spend</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- REVENUE IMPACT -->
+<section class="section">
+  <p class="section-label reveal">Experience Economics</p>
+  <h2 class="section-title reveal">Every experience<br><em>drives a different revenue model.</em></h2>
+
+  <div class="revenue-strip reveal" style="margin-top:3rem;">
+    <div class="rev-block">
+      <span class="rev-val">9</span>
+      <span class="rev-key">Distinct experience<br>formats programmed</span>
+    </div>
+    <div class="rev-block">
+      <span class="rev-val">12</span>
+      <span class="rev-key">Major cultural events<br>across the calendar</span>
+    </div>
+    <div class="rev-block">
+      <span class="rev-val">$55–$100</span>
+      <span class="rev-key">Average spend per guest<br>Year 1 to Year 3</span>
+    </div>
+    <div class="rev-block">
+      <span class="rev-val">0</span>
+      <span class="rev-key">Competitors offering<br>this in central NJ</span>
+    </div>
+  </div>
+
+  <div style="margin-top:1px; background:var(--card); border:1px solid var(--line); padding:2.5rem 3rem; margin-top:2rem;" class="reveal">
+    <p style="font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--gold); margin-bottom:1rem;">Why multiple experiences matter for investors:</p>
+    <p style="font-size:0.85rem; color:var(--muted); line-height:1.9;">A single-format venue lives and dies by its DJ. RASA is built differently. Nine experience formats mean nine revenue streams, nine audience segments, and nine reasons for every South Asian in central NJ to make RASA their venue regardless of what they're looking for that week. Karaoke fills midweek. IPL fills March through May. Sangeets fill Sunday afternoons. The cultural calendar fills every major holiday. <strong style="color:var(--cream); font-weight:400;">There is no off-season at RASA.</strong></p>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<div class="closing">
+  <div class="closing-inner">
+    <p class="closing-quote">"Where every night finds its rasa."</p>
+    <p class="closing-sub">RASA · Edison, New Jersey · Come for the night. Leave with a story.</p>
+  </div>
+</div>
+
+<footer>
+  <p>RASA · The Experience · Edison, NJ · Confidential · 2026</p>
+  <a href="rasa-investor.html">← Back to Investor Deck</a>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

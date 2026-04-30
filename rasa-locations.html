@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RASA — Location Scouting · Edison, NJ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --black:#09080A; --deep:#0E0C10; --panel:#141218; --card:#1A1720;
+  --gold:#C9A84C; --saffron:#D4762A; --cream:#F0E6D0;
+  --muted:rgba(240,230,208,0.45); --line:rgba(201,168,76,0.18);
+  --green:#27AE60; --red:#C0392B; --blue:#2980B9; --orange:#E67E22;
+  --serif:'Cormorant Garamond',serif; --sans:'Jost',sans-serif;
+}
+html { scroll-behavior:smooth; }
+body { background:var(--black); color:var(--cream); font-family:var(--sans); font-weight:300; overflow-x:hidden; }
+::-webkit-scrollbar{width:3px} ::-webkit-scrollbar-track{background:var(--black)} ::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; justify-content:space-between; align-items:center; padding:1.2rem 3.5rem; background:rgba(9,8,10,0.95); backdrop-filter:blur(18px); border-bottom:1px solid var(--line); }
+.nav-logo { font-family:var(--serif); font-size:1.4rem; font-weight:600; letter-spacing:0.28em; color:var(--gold); text-decoration:none; }
+.nav-tag { font-size:0.6rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); }
+.nav-back { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; padding:0.5rem 1.2rem; border:1px solid var(--line); color:var(--muted); text-decoration:none; transition:all 0.3s; }
+.nav-back:hover { border-color:var(--gold); color:var(--gold); }
+
+/* HERO */
+.hero { padding:9rem 3.5rem 4rem; background:var(--deep); position:relative; overflow:hidden; border-bottom:1px solid var(--line); }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 60% at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 70%); }
+.hero-inner { position:relative; max-width:1200px; margin:0 auto; display:block; }
+.hero-label { font-size:0.6rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--saffron); margin-bottom:1.2rem; }
+.hero-title { font-family:var(--serif); font-size:clamp(2.5rem,5vw,4.5rem); font-weight:300; color:var(--cream); line-height:1.05; margin-bottom:1.5rem; }
+.hero-title em { color:var(--gold); font-style:italic; }
+.hero-body { font-size:0.88rem; color:var(--muted); line-height:1.9; margin-bottom:2rem; }
+.hero-stats { display:flex; gap:2.5rem; }
+.h-stat-val { font-family:var(--serif); font-size:1.8rem; font-weight:600; color:var(--gold); display:block; line-height:1; }
+.h-stat-key { font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); margin-top:0.35rem; display:block; }
+.map-preview { border:1px solid var(--line); overflow:hidden; height:280px; position:relative; }
+.map-preview iframe { width:100%; height:100%; border:none; }
+.map-label { position:absolute; bottom:0; left:0; right:0; background:rgba(9,8,10,0.88); padding:0.6rem 1rem; font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); }
+
+/* DISCLAIMER */
+.disclaimer { background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.25); border-left:3px solid var(--gold); padding:1.2rem 2rem; max-width:1200px; margin:2rem auto; font-size:0.75rem; color:var(--muted); line-height:1.7; }
+.disclaimer strong { color:var(--gold); font-weight:400; }
+
+/* LEGEND */
+.legend { display:flex; justify-content:center; gap:2rem; padding:1.2rem 3.5rem; background:var(--panel); border-bottom:1px solid var(--line); flex-wrap:wrap; }
+.legend-item { display:flex; align-items:center; gap:0.6rem; font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); }
+.legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+/* STATS */
+.stats-strip { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); }
+.stat-block { background:var(--card); padding:2rem; text-align:center; }
+.stat-val { font-family:var(--serif); font-size:2.2rem; font-weight:600; color:var(--gold); display:block; line-height:1; }
+.stat-key { font-size:0.6rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); margin-top:0.5rem; display:block; line-height:1.5; }
+
+/* SECTIONS */
+.section { max-width:1200px; margin:0 auto; padding:5rem 3.5rem; }
+.full-bleed { background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.divider { height:1px; background:linear-gradient(to right, transparent, var(--line), transparent); }
+.section-label { font-size:0.58rem; letter-spacing:0.42em; text-transform:uppercase; color:var(--saffron); margin-bottom:1rem; display:flex; align-items:center; gap:1rem; }
+.section-label::before { content:''; width:28px; height:1px; background:var(--saffron); }
+.section-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3.2rem); font-weight:300; color:var(--cream); line-height:1.1; margin-bottom:0.5rem; }
+.section-title em { color:var(--gold); font-style:italic; }
+.section-intro { font-size:0.88rem; color:var(--muted); line-height:1.9; max-width:650px; margin-top:1rem; margin-bottom:2.5rem; }
+
+/* LOCATION CARDS */
+.loc-block { display:block; border-bottom:1px solid var(--line); }
+.loc-block:last-child { border-bottom:none; }
+.loc-block.flip { direction:ltr; }
+
+
+.street-view { position:relative; background:var(--card); }
+.street-view iframe { width:100%; height:400px; border:none; display:block; }
+.sv-badge { position:absolute; top:1rem; left:1rem; background:rgba(9,8,10,0.9); backdrop-filter:blur(8px); padding:0.35rem 0.8rem; font-size:0.58rem; letter-spacing:0.2em; text-transform:uppercase; border:1px solid var(--line); color:var(--gold); }
+.status-badge { position:absolute; top:1rem; right:1rem; padding:0.3rem 0.75rem; font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; font-weight:500; }
+.status-confirmed { background:rgba(39,174,96,0.15); border:1px solid var(--green); color:var(--green); }
+.status-verify { background:rgba(230,126,34,0.15); border:1px solid var(--orange); color:var(--orange); }
+.status-closed { background:rgba(192,57,43,0.15); border:1px solid var(--red); color:var(--red); }
+
+.loc-info { padding:2.5rem; background:var(--card); display:flex; flex-direction:column; gap:0; border-bottom:1px solid rgba(201,168,76,0.06); }
+.loc-info:last-child { border-bottom:none; }
+.loc-corridor { font-size:0.58rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--saffron); margin-bottom:0.75rem; }
+.loc-name { font-family:var(--serif); font-size:1.7rem; font-weight:300; color:var(--cream); line-height:1.1; margin-bottom:0.4rem; }
+.loc-name em { color:var(--gold); font-style:italic; }
+.loc-addr { font-size:0.72rem; color:var(--muted); margin-bottom:1.2rem; letter-spacing:0.05em; }
+.loc-tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.2rem; }
+.loc-tag { font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; padding:0.25rem 0.7rem; }
+.tag-prime    { border:1px solid var(--gold);    color:var(--gold); }
+.tag-closed   { border:1px solid var(--red);     color:var(--red); }
+.tag-available{ border:1px solid var(--green);   color:var(--green); }
+.tag-anchor   { border:1px solid var(--saffron); color:var(--saffron); }
+.tag-traffic  { border:1px solid var(--blue);    color:var(--blue); }
+.tag-verify   { border:1px solid var(--orange);  color:var(--orange); }
+.loc-desc { font-size:0.8rem; color:var(--muted); line-height:1.85; margin-bottom:1.5rem; }
+.loc-callout { padding:1rem 1.2rem; border-left:2px solid var(--gold); background:rgba(201,168,76,0.05); margin-bottom:1.5rem; }
+.loc-callout p { font-size:0.75rem; color:var(--muted); line-height:1.7; }
+.loc-callout strong { color:var(--cream); font-weight:400; }
+
+/* CTA LINK */
+.loc-cta { display:inline-flex; align-items:center; gap:0.6rem; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); text-decoration:none; padding:0.6rem 1.2rem; border:1px solid var(--gold); transition:all 0.3s; align-self:flex-start; }
+.loc-cta:hover { background:var(--gold); color:var(--black); }
+.loc-cta-note { font-size:0.62rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); padding:0.6rem 1.2rem; border:1px solid var(--line); }
+
+/* SECTION HEADER GROUP */
+.section-head { margin-bottom:2.5rem; }
+
+/* RESOURCES */
+.resources-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); }
+.resource-card { background:var(--card); padding:2rem; }
+.resource-card h4 { font-family:var(--serif); font-size:1.05rem; color:var(--gold); margin-bottom:0.6rem; }
+.resource-card p { font-size:0.75rem; color:var(--muted); line-height:1.75; margin-bottom:1rem; }
+.resource-link { display:inline-block; font-size:0.62rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--saffron); text-decoration:none; border-bottom:1px solid rgba(212,118,42,0.3); padding-bottom:0.1rem; transition:border-color 0.3s; }
+.resource-link:hover { border-color:var(--saffron); }
+
+/* FOOTER */
+footer { display:flex; justify-content:space-between; align-items:center; padding:1.5rem 3.5rem; border-top:1px solid var(--line); background:var(--panel); }
+footer p { font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); opacity:0.5; }
+footer a { font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold); text-decoration:none; padding:0.5rem 1.2rem; border:1px solid var(--line); transition:all 0.3s; }
+footer a:hover { border-color:var(--gold); }
+
+/* REVEAL */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem} .nav-tag{display:none}
+  .hero-inner{grid-template-columns:1fr}
+  .section{padding:3rem 1.5rem}
+  .loc-block{grid-template-columns:1fr} .loc-block.flip{direction:ltr}
+  .stats-strip,.resources-grid{grid-template-columns:repeat(2,1fr)}
+  .legend{gap:1rem;padding:1rem 1.5rem}
+  footer{flex-direction:column;gap:1rem;text-align:center}
+  .disclaimer{margin:1rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="rasa-investor.html" class="nav-logo">RASA</a>
+  <span class="nav-tag">Location Scouting · Edison, NJ · 2026</span>
+  <a href="rasa-investor.html" class="nav-back">← Investor Deck</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-label">RASA · Site Scouting · Edison, New Jersey</p>
+      <h1 class="hero-title">Finding RASA's<br><em>home in Edison</em></h1>
+      <p class="hero-body">Target corridors and verified locations across Oak Tree Road, Route 1, Route 27, and surrounding areas — including confirmed-closed national chain spaces that represent capital-efficient opportunities. All addresses are verified. Availability must be confirmed directly with brokers.</p>
+      <div class="hero-stats">
+        <div><span class="h-stat-val">5</span><span class="h-stat-key">Target Corridors<br>Identified</span></div>
+        <div><span class="h-stat-val">3+</span><span class="h-stat-key">Confirmed Closed Bars<br>Within 10 Miles</span></div>
+        <div><span class="h-stat-val">$22.5</span><span class="h-stat-key">Avg $/sqft<br>Edison Commercial</span></div>
+      </div>
+    </div>
+    
+    </div>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div style="background:var(--panel); border-bottom:1px solid var(--line); padding:1rem 0;">
+  <div class="disclaimer">
+    <strong>Investor Note:</strong> All addresses below are verified from public records, LoopNet, Google Maps, and news sources. Status labels (Confirmed Available / Verify Availability / Confirmed Closed) reflect current research as of April 2026. Lease availability changes rapidly — all sites require direct broker verification before any commitment. Street View images are sourced from Google Maps at the verified address coordinates.
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Confirmed Available</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div>Verify Availability</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Confirmed Closed</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Prime Corridor</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>High Traffic</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat-block"><span class="stat-val">50K+</span><span class="stat-key">Weekly South Asian visitors<br>Oak Tree Road</span></div>
+  <div class="stat-block"><span class="stat-val">90K</span><span class="stat-key">Vehicles per day<br>Route 1</span></div>
+  <div class="stat-block"><span class="stat-val">37.5K</span><span class="stat-key">Vehicles per day<br>Route 27</span></div>
+  <div class="stat-block"><span class="stat-val">400+</span><span class="stat-key">South Asian businesses<br>Oak Tree Road</span></div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 01: OAK TREE ROAD — CONFIRMED AVAILABLE -->
+<section class="section">
+  <div class="section-head reveal">
+    <p class="section-label">01 · Confirmed Available · Oak Tree Road</p>
+    <h2 class="section-title">1627 Oak Tree Road<br><em>Oakwood Plaza — Listed on LoopNet</em></h2>
+    <p class="section-intro">This is the only currently confirmed-available retail space directly on Oak Tree Road with an active LoopNet listing. Strip shopping center at the Wood Ave intersection — the busiest point on America's Little India corridor.</p>
+  </div>
+
+  <div class="loc-block reveal">
+    
+    </div>
+    <div class="loc-info">
+      <p class="loc-corridor">Oak Tree Road · Edison, NJ 08820</p>
+      <h3 class="loc-name">Oakwood Plaza<br><em>1627 Oak Tree Road</em></h3>
+      <p class="loc-addr">1627 Oak Tree Road, Edison, NJ 08820 · Wood Ave & Oak Tree Rd intersection</p>
+      <div class="loc-tags">
+        <span class="loc-tag tag-available">Active LoopNet Listing</span>
+        <span class="loc-tag tag-prime">Oak Tree Frontage</span>
+        <span class="loc-tag tag-traffic">Highest Footfall Point</span>
+      </div>
+      <p class="loc-desc">Strip shopping center at the Wood Ave and Oak Tree Road intersection — the geographic centre of Little India and the busiest pedestrian point on the corridor. Currently listed for lease on LoopNet by Garden Commercial. Ground floor retail with direct Oak Tree Road frontage. The intersection where Edison and Iselin meet — maximum South Asian foot traffic.</p>
+      <div class="loc-callout">
+        <p><strong>Why This Location:</strong> Wood Ave & Oak Tree Road is the single most trafficked point on America's largest South Asian commercial corridor. Every person who walks Oak Tree Road passes this intersection. RASA here = zero customer acquisition cost.</p>
+      </div>
+      <a href="https://www.loopnet.com/Listing/1627-Oak-Tree-Rd-Edison-NJ/24402231/" target="_blank" class="loc-cta">View Live LoopNet Listing →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 02: OAK TREE ROAD — CORRIDOR -->
+<div class="full-bleed">
+<section class="section">
+  <div class="section-head reveal">
+    <p class="section-label">02 · Scouting Target · Oak Tree Road Corridor</p>
+    <h2 class="section-title">2077 Oak Tree Road<br><em>Active Retail Space · Edison</em></h2>
+    <p class="section-intro">A second Oak Tree Road listing currently active on LoopNet — two smaller retail spaces at 1,400 and 1,800 sq ft. May suit a phased entry or combined lease for a lounge concept.</p>
+  </div>
+
+  <div class="loc-block reveal">
+    
+    </div>
+    <div class="loc-info">
+      <p class="loc-corridor">Oak Tree Road · Edison, NJ 08820</p>
+      <h3 class="loc-name">2077 Oak Tree Road<br><em>Two Retail Spaces Available</em></h3>
+      <p class="loc-addr">2077 Oak Tree Road, Edison, NJ 08820</p>
+      <div class="loc-tags">
+        <span class="loc-tag tag-available">Active on LoopNet</span>
+        <span class="loc-tag tag-prime">Oak Tree Road</span>
+        <span class="loc-tag tag-anchor">South Asian Corridor</span>
+      </div>
+      <p class="loc-desc">Two retail spaces currently available on LoopNet — 1,400 sq ft and 1,800 sq ft. On Oak Tree Road in Edison, directly within the South Asian commercial corridor. Smaller than RASA's ideal footprint individually, but worth exploring as a combined or adjacent space opportunity. Direct broker contact required to discuss build-out potential.</p>
+      <div class="loc-callout">
+        <p><strong>Explore with Broker:</strong> While 1,400–1,800 sq ft is smaller than RASA's 3,500–5,000 sq ft target, a combined lease or adjacent expansion may be possible. Always worth a conversation on Oak Tree Road.</p>
+      </div>
+      <a href="https://www.loopnet.com/Listing/2077-Oak-Tree-Rd-Edison-NJ/15176185/" target="_blank" class="loc-cta">View Live LoopNet Listing →</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- 03: BRICK HOUSE TAVERN — SOUTH PLAINFIELD -->
+<section class="section">
+  <div class="section-head reveal">
+    <p class="section-label">03 · Confirmed Closed · Investigate for Lease</p>
+    <h2 class="section-title">4901 Stelton Road, South Plainfield<br><em>Former Brick House Tavern + Tap — Permanently Closed</em></h2>
+    <p class="section-intro">Confirmed permanently closed. Located in Hadley Center, South Plainfield — directly adjacent to Edison on Stelton Road. Large sports-pub format with full bar, commercial kitchen, recliners, and extensive draft beer infrastructure. One of the most promising closed spaces near Oak Tree Road.</p>
+  </div>
+
+  <div class="loc-block reveal">
+    
+    </div>
+    <div class="loc-info">
+      <p class="loc-corridor">South Plainfield, NJ 07080 · Adjacent to Edison</p>
+      <h3 class="loc-name">Former Brick House Tavern + Tap<br><em>4901 Stelton Road, Hadley Center</em></h3>
+      <p class="loc-addr">4901 Stelton Rd, South Plainfield, NJ 07080 · Located in Hadley Center</p>
+      <div class="loc-tags">
+        <span class="loc-tag tag-closed">Permanently Closed</span>
+        <span class="loc-tag tag-verify">Verify Availability</span>
+        <span class="loc-tag tag-prime">Adjacent to Edison</span>
+        <span class="loc-tag tag-traffic">Hadley Center · High Traffic</span>
+      </div>
+      <p class="loc-desc">Brick House Tavern + Tap was a premium sports-pub chain known for its large footprint, full bar, commercial kitchen, and entertainment-first layout — recliners, multiple screens, high-concept bar food. Permanently closed. Located in Hadley Center on Stelton Road, which runs directly between South Plainfield and Edison. The space is large, purpose-built for a bar experience, and sits in a high-traffic shopping center with ample parking. 4,000+ sq ft format with full bar and kitchen infrastructure already in place.</p>
+      <div class="loc-callout">
+        <p><strong>Why This Is RASA's Best Opportunity:</strong> A purpose-built bar and entertainment space — not a restaurant converted into a bar. Full draft systems, bar seating, large open floor plan for DJ nights, commercial kitchen, and existing ventilation. <strong>Estimated build-out savings of $100K–$200K</strong> vs a raw shell. Stelton Road connects directly to the Edison South Asian residential corridor. Contact Hadley Center's landlord directly.</p>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="https://www.google.com/maps/place/4901+Stelton+Rd,+South+Plainfield,+NJ+07080" target="_blank" class="loc-cta">View on Google Maps →</a>
+        <a href="https://www.loopnet.com/search/retail-space/south-plainfield-nj/for-lease/" target="_blank" class="loc-cta">Search South Plainfield on LoopNet →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 04: CLOSED TGI FRIDAYS — ISELIN -->
+<section class="section">
+  <div class="section-head reveal">
+    <p class="section-label">04 · Confirmed Closed · Investigate for Lease</p>
+    <h2 class="section-title">401 Gill's Lane, Iselin<br><em>Former TGI Fridays — Permanently Closed</em></h2>
+    <p class="section-intro">Confirmed permanently closed per Yelp, Foursquare, and multiple news sources. 5 minutes from Oak Tree Road. Full bar infrastructure, kitchen, ventilation likely intact. Availability must be confirmed with the landlord or a commercial broker directly.</p>
+  </div>
+
+  <div class="loc-block reveal">
+    
+    </div>
+    <div class="loc-info">
+      <p class="loc-corridor">Iselin · Woodbridge Township, NJ 08830</p>
+      <h3 class="loc-name">Former TGI Fridays<br><em>401 Gill's Lane, Iselin</em></h3>
+      <p class="loc-addr">401 Gill's Lane, Iselin, NJ 08830 · Woodbridge Township · (732) 636-1537</p>
+      <div class="loc-tags">
+        <span class="loc-tag tag-closed">Permanently Closed Jan 2024</span>
+        <span class="loc-tag tag-verify">Verify Availability</span>
+        <span class="loc-tag tag-prime">5 Min from Oak Tree Rd</span>
+      </div>
+      <p class="loc-desc">Confirmed permanently closed January 2024 as part of TGI Fridays' first round of 36 national closures. Located on Gill's Lane in the Iselin section of Woodbridge Township — the southern portion of the Oak Tree Road corridor. Full-service bar and restaurant space. Near Route 1, Route 9, Garden State Parkway, and the NJ Turnpike. Ample parking on site.</p>
+      <div class="loc-callout">
+        <p><strong>Opportunity:</strong> Full bar setup, commercial kitchen, ventilation, and grease trap likely intact. Estimated <strong>$80K–$150K build-out savings</strong> vs a raw shell. Existing liquor license history advantages the NJ application. <strong>Contact the landlord of the shopping center directly to check availability.</strong></p>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="https://www.google.com/maps/place/401+Gill's+Ln,+Iselin,+NJ+08830" target="_blank" class="loc-cta">View on Google Maps →</a>
+        <a href="https://www.loopnet.com/search/retail-space/iselin-nj/for-lease/" target="_blank" class="loc-cta">Search Iselin on LoopNet →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 04: CLOSED TGI FRIDAYS — PISCATAWAY -->
+<div class="full-bleed">
+<section class="section">
+  <div class="section-head reveal">
+    <p class="section-label">04 · Confirmed Closed · Investigate for Lease</p>
+    <h2 class="section-title">1315 Centennial Ave, Piscataway<br><em>Former TGI Fridays — Permanently Closed</em></h2>
+    <p class="section-intro">Confirmed permanently closed October 2024. 4 miles from Edison. Strong South Asian residential area. Full restaurant infrastructure in place. Verify availability with Middlesex County commercial brokers.</p>
+  </div>
+
+  <div class="loc-block flip reveal">
+    
+    </div>
+    <div class="loc-info">
+      <p class="loc-corridor">Piscataway, NJ 08854 · 4 Miles from Edison</p>
+      <h3 class="loc-name">Former TGI Fridays<br><em>1315 Centennial Ave, Piscataway</em></h3>
+      <p class="loc-addr">1315 Centennial Ave, Piscataway, NJ 08854 · (732) 465-0101</p>
+      <div class="loc-tags">
+        <span class="loc-tag tag-closed">Permanently Closed Oct 2024</span>
+        <span class="loc-tag tag-verify">Verify Availability</span>
+        <span class="loc-tag tag-traffic">Strong Demographics</span>
+      </div>
+      <p class="loc-desc">Confirmed permanently closed October 2024 as TGI Fridays filed for Chapter 11 bankruptcy. Piscataway has a significant South Asian residential population — same community as Edison, slightly wider catchment. Centennial Avenue location offers good visibility, strong parking, and proximity to Rutgers University adds a younger demographic layer to the audience.</p>
+      <div class="loc-callout">
+        <p><strong>Secondary Pick:</strong> If Oak Tree Road primary targets are unavailable, Piscataway offers <strong>comparable demographics, lower expected rent, and full bar infrastructure</strong> ready for RASA's concept. Call (732) 465-0101 to reach the former location's contact.</p>
+      </div>
+      <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+        <a href="https://www.google.com/maps/place/1315+Centennial+Ave,+Piscataway,+NJ+08854" target="_blank" class="loc-cta">View on Google Maps →</a>
+        <a href="https://www.loopnet.com/search/retail-space/piscataway-nj/for-lease/" target="_blank" class="loc-cta">Search Piscataway on LoopNet →</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="divider"></div>
+
+<!-- 05: WOODBRIDGE AVE TURNKEY -->
+<section class="section">
+  <div class="section-head reveal">
+    <p class="section-label">06 · Scouting Target · Turnkey Restaurant Space</p>
+    <h2 class="section-title">3126 Woodbridge Ave, Edison<br><em>Turnkey Restaurant — Listed for Sale</em></h2>
+    <p class="section-intro">Listed on Realmo as a turnkey restaurant space for sale in a heavily traveled area of Edison. Existing restaurant infrastructure in place. Verify lease vs purchase options with the listing agent.</p>
+  </div>
+
+  <div class="loc-block reveal">
+    
+    </div>
+    <div class="loc-info">
+      <p class="loc-corridor">Woodbridge Ave · Edison, NJ 08837</p>
+      <h3 class="loc-name">Turnkey Restaurant<br><em>3126 Woodbridge Ave</em></h3>
+      <p class="loc-addr">3126 Woodbridge Ave, Edison, NJ 08837</p>
+      <div class="loc-tags">
+        <span class="loc-tag tag-verify">Listed on Realmo</span>
+        <span class="loc-tag tag-available">Turnkey Infrastructure</span>
+        <span class="loc-tag tag-traffic">Heavily Traveled</span>
+      </div>
+      <p class="loc-desc">Listed as a turnkey restaurant for sale in a heavily traveled area of Edison. Woodbridge Ave connects directly to the Oak Tree Road corridor. Existing restaurant infrastructure — kitchen, ventilation, plumbing — dramatically reduces build-out cost and timeline. Listed as for sale, but lease options may be negotiable with the owner.</p>
+      <div class="loc-callout">
+        <p><strong>Fastest Route to Launch:</strong> Turnkey restaurant spaces reduce build-out time by <strong>4–6 months</strong>. For a Diwali 2027 grand opening target, this may be the most time-efficient path from funding to the first night at RASA.</p>
+      </div>
+      <a href="https://realmo.com/commercial-real-estate/for-sale/nj/edison/" target="_blank" class="loc-cta">View on Realmo →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESOURCES -->
+<div class="full-bleed">
+  <div class="section" style="padding-top:3.5rem; padding-bottom:3.5rem;">
+    <p class="section-label reveal">Search Resources</p>
+    <h2 class="section-title reveal" style="margin-bottom:2.5rem;">Find your space.<br><em>Start here.</em></h2>
+
+    <div class="resources-grid reveal">
+      <div class="resource-card">
+        <h4>LoopNet · Edison Retail</h4>
+        <p>50+ Edison retail listings. Filter by size (3,000–5,000 sq ft), type (restaurant/bar), and location. Updated daily. The most comprehensive commercial listing database in the US.</p>
+        <a href="https://www.loopnet.com/search/retail-space/edison-nj/for-lease/" target="_blank" class="resource-link">loopnet.com/edison-retail →</a>
+      </div>
+      <div class="resource-card">
+        <h4>LoopNet · Edison Restaurants</h4>
+        <p>Specifically filtered for restaurant and bar spaces in Edison, NJ. Current listings with broker contact details, floor plans, and lease terms.</p>
+        <a href="https://www.loopnet.com/search/restaurants/edison-nj/for-lease/" target="_blank" class="resource-link">loopnet.com/edison-restaurants →</a>
+      </div>
+      <div class="resource-card">
+        <h4>Crexi · Edison Restaurants</h4>
+        <p>Alternative to LoopNet — often has listings that don't appear elsewhere. Good for Edison and Middlesex County restaurant space searches.</p>
+        <a href="https://www.crexi.com/lease/properties/NJ/Edison/Restaurants" target="_blank" class="resource-link">crexi.com/edison-restaurants →</a>
+      </div>
+      <div class="resource-card">
+        <h4>LoopNet · Iselin Retail</h4>
+        <p>Iselin (Woodbridge Township) retail space — the southern half of the Oak Tree Road corridor. 4 current retail listings including the former TGI Fridays zone.</p>
+        <a href="https://www.loopnet.com/search/retail-space/iselin-nj/for-lease/" target="_blank" class="resource-link">loopnet.com/iselin-retail →</a>
+      </div>
+      <div class="resource-card">
+        <h4>CommercialCafe · Edison</h4>
+        <p>874,484 sq ft of available retail space in Edison. Good overview of the full commercial market with broker network contacts and market analytics.</p>
+        <a href="https://www.commercialcafe.com/commercial-real-estate/us/nj/middlesex-county/edison/" target="_blank" class="resource-link">commercialcafe.com/edison →</a>
+      </div>
+      <div class="resource-card">
+        <h4>Realmo · Edison Commercial</h4>
+        <p>66 commercial properties in Edison including the Woodbridge Ave turnkey restaurant listing. Good for off-market and for-sale opportunities.</p>
+        <a href="https://realmo.com/commercial-real-estate/for-sale/nj/edison/" target="_blank" class="resource-link">realmo.com/edison →</a>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem; padding:1.5rem 2rem; border:1px solid var(--line); background:rgba(201,168,76,0.03);">
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.8;"><span style="color:var(--gold); font-weight:400;">Broker Tip:</span> The best Edison spaces — especially on or near Oak Tree Road — are leased through local brokers before they hit any online platform. Call a Middlesex County commercial specialist directly and brief them on RASA's concept, 3,500–5,000 sq ft requirement, ground floor preference, and liquor license need. Ask specifically about the former TGI Fridays locations and any recently vacated restaurant spaces.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>RASA · Location Scouting · Edison, NJ · Confidential · 2026</p>
+  <a href="rasa-investor.html">← Back to Investor Deck</a>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+reveals.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
